@@ -154,6 +154,7 @@ public class Graph {
 	private int getNodeShortestDistanced() {
 		
 		int storedNodeIndex = 0;
+		///kllllllllll
 		double storedDist = Integer.MAX_VALUE;
 		
 		for (int i = 0; i < this.nodes.length; i++) {
