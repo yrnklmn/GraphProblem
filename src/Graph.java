@@ -57,6 +57,4 @@ public class Graph {
     }
 }
 
-class myClass {
-}
 
