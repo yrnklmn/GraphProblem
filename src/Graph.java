@@ -48,7 +48,7 @@ public class Graph {
 
 
 
-        
+
     }
 
     public DGraph getGraph() {
