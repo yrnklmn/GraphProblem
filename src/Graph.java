@@ -56,3 +56,7 @@ public class Graph {
         Graph g = new Graph(path);
     }
 }
+
+class myClass {
+}
+
