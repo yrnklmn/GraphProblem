@@ -24,16 +24,27 @@ public class Graph {
             num_of_nodes = (int) sc.nextDouble();
             num_of_edges = (int) sc.nextDouble();
             this.vertices = new Dijkstra.Vertex[num_of_nodes];
-            Vector<Dijkstra.Edge> neighbor = new Vector();
             for (int i = 0; i < num_of_nodes; i++) {
-                Dijkstra.Vertex v = new Dijkstra.Vertex(sc.nextInt());
-                while (v.name == i) {
-                    neighbor.add(new Dijkstra.Edge(new Dijkstra.Vertex(sc.nextInt()), sc.nextDouble()));
+                vertices[i] = new Dijkstra.Vertex(i);
+                vertices[i].adjacencies = new Dijkstra.Edge[0];
+            }
+            Stack<Dijkstra.Edge> neighbor[] = new Stack[num_of_nodes];
+            for (int i = 0; i < num_of_nodes; i++) {
+                neighbor[i] = new Stack<>();
+            }
+            int u = sc.nextInt();
+            for (int i = 0; i < num_of_nodes; i++) {
+                while (u == i) {
+                    int v = sc.nextInt();
+                    double w = sc.nextDouble();
+                    neighbor[u].push(getEdge(u, v, w));
+                    neighbor[v].push(getEdge(v, u, w));
+                    if (sc.hasNext()) {
+                        u = sc.nextInt();
+                    } else {
+                        break;
+                    }
                 }
-                v.adjacencies = new Dijkstra.Edge((Dijkstra.Edge[]) neighbor.toArray());
-//                vertices[i] =
-//                Dijkstra.Vertex v = new Dijkstra.Vertex(sc.nextInt());
-//                st.push(new Dijkstra.Edge(v, sc.nextDouble()));
             }
             sc.close();
         } catch (FileNotFoundException e) {
@@ -41,8 +52,13 @@ public class Graph {
         }
     }
 
+    private Dijkstra.Edge getEdge(int u, int v, double w) {
+        return new Dijkstra.Edge(new Dijkstra.Vertex(v), w);
+    }
+
     public static void main(String[] args) {
         String path = "exampleFiles\\G0.txt";
+        Graph p = new Graph(path);
     }
 }
 
