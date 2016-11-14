@@ -18,7 +18,7 @@ public class Dijkstras {
 //        g.addVertex('G', Arrays.asList(new Vertex('C', 4), new Vertex('F', 9)));
 //        g.addVertex('H', Arrays.asList(new Vertex('E', 1), new Vertex('F', 3)));
 
-        Graph g = new Graph("D:\\Downloads\\Ex1\\G0.txt");
+        Graph g = new Graph("exampleFiles\\G0.txt");
         System.out.println(g.getGraph().getShortestPath(0.0, 3.0));
     }
 

@@ -52,7 +52,7 @@ public class Graph {
     }
 
     public static void main(String[] args) {
-        String path = "D:\\Downloads\\Ex1\\G0.txt";
+        String path = "exampleFiles\\G0.txt";
         Graph g = new Graph(path);
     }
 }
