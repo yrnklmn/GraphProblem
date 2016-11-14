@@ -46,14 +46,27 @@ public class Graph {
                     }
                 }
             }
+            setNeighbors(neighbor);
             sc.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
+    private void setNeighbors(Stack<Dijkstra.Edge> st[]) {
+
+        for (int i = 0; i < vertices.length; i++) {
+            vertices[i].adjacencies = new Dijkstra.Edge[st[i].size()];
+            int j = 0;
+            while (!st[i].isEmpty()) {
+                vertices[i].adjacencies[j++] = st[i].pop();
+            }
+            j = 0;
+        }
+    }
+
     private Dijkstra.Edge getEdge(int u, int v, double w) {
-        return new Dijkstra.Edge(new Dijkstra.Vertex(v), w);
+        return new Dijkstra.Edge(vertices[v], w);
     }
 
     public static void main(String[] args) {
