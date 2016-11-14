@@ -1,11 +1,9 @@
-package Or_Test;
-
 import java.util.PriorityQueue;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Dijks {
+public class Dijkstra {
 
 
     static class Vertex implements Comparable<Vertex> {
