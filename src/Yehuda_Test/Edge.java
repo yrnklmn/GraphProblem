@@ -20,13 +20,13 @@ public class Edge {
 		return toNodeIndex;
 	}
 
-	private int length;
+	private double length;
 
-	public int getLength() {
+	public double getLength() {
 		return length;
 	}
 
-	public Edge(int fromNodeIndex, int toNodeIndex, int length) {
+	public Edge(int fromNodeIndex, int toNodeIndex, double length) {
 		this.fromNodeIndex = fromNodeIndex;
 		this.toNodeIndex = toNodeIndex;
 		this.length = length;

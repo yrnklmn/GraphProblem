@@ -125,7 +125,7 @@ public class Graph {
 				if (!this.nodes[neighbourIndex].isVisited()) {
 					
 					// Calculate the tentative distance for the neighbour
-					int tentative = this.nodes[nextNode].getDistanceFromSource() + currentNodeEdges.get(joinedEdge).getLength();
+					double tentative = this.nodes[nextNode].getDistanceFromSource() + currentNodeEdges.get(joinedEdge).getLength();
 					
 					// Overwrite if the tentative distance is less than what's currently stored
 					if (tentative < nodes[neighbourIndex].getDistanceFromSource()) {
@@ -154,10 +154,10 @@ public class Graph {
 	private int getNodeShortestDistanced() {
 		
 		int storedNodeIndex = 0;
-		int storedDist = Integer.MAX_VALUE;
+		double storedDist = Integer.MAX_VALUE;
 		
 		for (int i = 0; i < this.nodes.length; i++) {
-			int currentDist = this.nodes[i].getDistanceFromSource();			
+			double currentDist = this.nodes[i].getDistanceFromSource();
 			if (!this.nodes[i].isVisited() && currentDist < storedDist) {
 				storedDist = currentDist;
 				storedNodeIndex = i;

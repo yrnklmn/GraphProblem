@@ -10,13 +10,13 @@ import java.util.ArrayList;
  */
 public class Node {
 	
-	private int distanceFromSource = Integer.MAX_VALUE;
+	private double distanceFromSource = Integer.MAX_VALUE;
 
-	public int getDistanceFromSource() {
+	public double getDistanceFromSource() {
 		return distanceFromSource;
 	}
 
-	public void setDistanceFromSource(int distanceFromSource) {
+	public void setDistanceFromSource(double distanceFromSource) {
 		this.distanceFromSource = distanceFromSource;
 	}
 
