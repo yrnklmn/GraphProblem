@@ -7,17 +7,17 @@ public class Dijkstra {
 
 
     static class Vertex implements Comparable<Vertex> {
-        public final String name;
+        public final int name;
         public Edge[] adjacencies;
         public double minDistance = Double.POSITIVE_INFINITY;
         public Vertex previous;
 
-        public Vertex(String argName) {
+        public Vertex(int argName) {
             name = argName;
         }
 
         public String toString() {
-            return name;
+            return name + "";
         }
 
         public int compareTo(Vertex other) {
@@ -38,11 +38,11 @@ public class Dijkstra {
     public static class DijkstraSP {
         Vertex[] vertices;
 
-        public DijkstraSP() {
-            vertices = init1();//new Vertex[vs.length];
-//            for (int i = 0; i < vs.length; i++) {
-//                vertices[i] = vs[i];
-//            }
+        public DijkstraSP(Vertex[] vert) {
+            vertices = new Vertex[vert.length];
+            for (int i = 0; i < vert.length; i++) {
+                vertices[i] = vert[i];
+            }
         }
 
         public Vertex getVertex(int index) {
@@ -86,30 +86,30 @@ public class Dijkstra {
             Collections.reverse(path);
             return path;
         }
-
-        public Vertex[] init1() {
-            Vertex v0 = new Vertex("0");
-            Vertex v1 = new Vertex("1");
-            Vertex v2 = new Vertex("2");
-            Vertex v3 = new Vertex("3");
-            Vertex v4 = new Vertex("4");
-            Vertex v5 = new Vertex("5");
-
-            v0.adjacencies = new Edge[]{new Edge(v3, 4.1), new Edge(v4, 1.1), new Edge(v5, 3)};
-            v1.adjacencies = new Edge[]{new Edge(v2, 3), new Edge(v4, 4.2)};
-            v2.adjacencies = new Edge[]{new Edge(v1, 3), new Edge(v3, 5.16), new Edge(v4, 2.2)};
-            v3.adjacencies = new Edge[]{new Edge(v0, 4.1), new Edge(v2, 5.16), new Edge(v5, 0.3)};
-            v4.adjacencies = new Edge[]{new Edge(v0, 1.1), new Edge(v1, 4.2), new Edge(v2, 2.2), new Edge(v5, 2.2)};
-            v5.adjacencies = new Edge[]{new Edge(v0, 3), new Edge(v3, 0.3), new Edge(v4, 2.2)};
-            Vertex[] vertices = {v0, v1, v2, v3, v4, v5};
-            return vertices;
-        }
     }
 
     public static void main(String[] args) {
-        DijkstraSP dsp = new DijkstraSP();
+        String path = "exampleFiles\\G0.txt";
+        DijkstraSP dsp = new DijkstraSP((new Graph(path)).getVertecies());
         dsp.computePaths(dsp.getVertex(1));
         System.out.println(dsp.getShortestPathTo(dsp.getVertex(1)));
         dsp.printPathes();
     }
 }
+//    public Vertex[] init1() {
+//        Vertex v0 = new Vertex("0");
+//        Vertex v1 = new Vertex("1");
+//        Vertex v2 = new Vertex("2");
+//        Vertex v3 = new Vertex("3");
+//        Vertex v4 = new Vertex("4");
+//        Vertex v5 = new Vertex("5");
+//
+//        v0.adjacencies = new Edge[]{new Edge(v3, 4.1), new Edge(v4, 1.1), new Edge(v5, 3)};
+//        v1.adjacencies = new Edge[]{new Edge(v2, 3), new Edge(v4, 4.2)};
+//        v2.adjacencies = new Edge[]{new Edge(v1, 3), new Edge(v3, 5.16), new Edge(v4, 2.2)};
+//        v3.adjacencies = new Edge[]{new Edge(v0, 4.1), new Edge(v2, 5.16), new Edge(v5, 0.3)};
+//        v4.adjacencies = new Edge[]{new Edge(v0, 1.1), new Edge(v1, 4.2), new Edge(v2, 2.2), new Edge(v5, 2.2)};
+//        v5.adjacencies = new Edge[]{new Edge(v0, 3), new Edge(v3, 0.3), new Edge(v4, 2.2)};
+//        Vertex[] vertices = {v0, v1, v2, v3, v4, v5};
+//        return vertices;
+//    }
