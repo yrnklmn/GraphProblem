@@ -1,20 +1,16 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class Graph {
 
     private int num_of_nodes, num_of_edges;
-    private Vertex weights[];
+    private DGraph g;
 
     public Graph(String GraphFile) {
         loadGraph(GraphFile);
-    }
-
-    private void print() {
-        for (int i = 0; i < weights.length; i++) {
-            System.out.println(weights[i]);
-        }
     }
 
     private void loadGraph(String path) {
@@ -22,9 +18,28 @@ public class Graph {
             Scanner sc = new Scanner(new File(path));
             num_of_nodes = (int) sc.nextDouble();
             num_of_edges = (int) sc.nextDouble();
-            weights = new Vertex[num_of_edges];
+            g = new DGraph();
+            Double u = new Double(0);
+            Double v = new Double(0);
+            Double w = new Double(0);
+            List<Vertex> vec[] = new Vector[num_of_edges];
             for (int i = 0; i < num_of_edges; i++) {
-                weights[i] = new Vertex(((int) sc.nextDouble()), ((int) sc.nextDouble()), sc.nextDouble());
+                vec[i] = new Vector<>();
+            }
+            u = sc.nextDouble();
+            for (int i = 0; i < num_of_nodes; i++) {
+                while (u == i) {
+                    v = sc.nextDouble();
+                    w = sc.nextDouble();
+                    vec[u.intValue()].add(new Vertex(v, w));
+                    vec[v.intValue()].add(new Vertex(u, w));
+                    if (sc.hasNext()) {
+                        u = sc.nextDouble();
+                    } else {
+                        break;
+                    }
+                }
+                g.addVertex(i + 0.0, vec[i]);
             }
             sc.close();
         } catch (FileNotFoundException e) {
@@ -32,24 +47,12 @@ public class Graph {
         }
     }
 
+    public DGraph getGraph() {
+        return this.g;
+    }
+
     public static void main(String[] args) {
         String path = "D:\\Downloads\\Ex1\\G0.txt";
         Graph g = new Graph(path);
-    }
-
-    class Vertex {
-        private int v, u;
-        private double weight;
-
-        public Vertex(int v, int u, double weight) {
-            this.v = v;
-            this.u = u;
-            this.weight = weight;
-        }
-
-        @Override
-        public String toString() {
-            return "(" + v + "," + u + "," + weight + ")";
-        }
     }
 }
