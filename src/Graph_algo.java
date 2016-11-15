@@ -1,26 +1,23 @@
 import java.util.List;
 
-public class Graph_algo
-{
-    private String path;
+public class Graph_algo {
     private Dijkstra.DijkstraSP dsp;
 
     public Graph_algo(String path) {
-        this.path = path;
-        dsp = new Dijkstra.DijkstraSP();
+        Graph graph = new Graph(path);
+        dsp = new Dijkstra.DijkstraSP(graph.getVertecies());
 
     }
 
-    public double calcDistBetweenTwoVertex(int vertexA, int vertexB)
-    {
+    public double calcDistBetweenTwoVertex(int vertexA, int vertexB) {
 
         dsp.computePaths(dsp.getVertex(vertexA));
         Dijkstra.Vertex vertex = dsp.getVertex(vertexB);
 
         return vertex.minDistance;
     }
-    public String calcBestPath(int vertexA, int vertexB)
-    {
+
+    public String calcBestPath(int vertexA, int vertexB) {
 
         dsp.computePaths(dsp.getVertex(vertexA));
         Dijkstra.Vertex vertex = dsp.getVertex(vertexB);
@@ -31,10 +28,9 @@ public class Graph_algo
     }
 
 
-    public static void main(String[] args)
-    {
-        Graph_algo graph_algo  = new Graph_algo("sdsds");
-        System.out.println("calcDistBetweenTwoVertex: "+graph_algo.calcDistBetweenTwoVertex(5,1));
-        System.out.println("calcBestPath: "+graph_algo.calcBestPath(5,1));
+    public static void main(String[] args) {
+        Graph_algo graph_algo = new Graph_algo("exampleFiles\\G0.txt");
+//        System.out.println("calcDistBetweenTwoVertex: " + graph_algo.calcDistBetweenTwoVertex(0, 1));
+        System.out.println("calcBestPath: " + graph_algo.calcBestPath(0, 1));
     }
 }
