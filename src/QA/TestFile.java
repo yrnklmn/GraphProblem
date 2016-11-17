@@ -1,6 +1,7 @@
 package QA;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TestFile {
@@ -14,26 +15,35 @@ public class TestFile {
         loadTestFile();
     }
 
+    public void print() {
+        for (Query q : testQueue) {
+            System.out.println(q.toString());
+        }
+    }
+
     private void loadTestFile() {
         try {
             Scanner sc = new Scanner(new File(path));
-            this.num_of_query = sc.nextInt();
+            this.num_of_query = (sc.nextInt()) - 1;
             this.testQueue = new Query[num_of_query];
             for (int i = 0; i < num_of_query; i++) {
                 int VertexA = sc.nextInt();
                 int VertexB = sc.nextInt();
                 int BL_size = sc.nextInt();
-                int blackList[] = new int[BL_size];
-                for (int j = 0; j < BL_size; j++) {
-                    blackList[j] = sc.nextInt();
+                if (BL_size > 0) {
+                    int blackList[] = new int[BL_size];
+                    for (int j = 0; j < BL_size; j++) {
+                        blackList[j] = sc.nextInt();
+                    }
+                    testQueue[i] = new Query(VertexA, VertexB, blackList);
+                } else {
+                    testQueue[i] = new Query(VertexA, VertexB, null);
                 }
-                testQueue[i] = new Query(VertexA, VertexB, blackList);
             }
             sc.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     class Query {
@@ -45,5 +55,16 @@ public class TestFile {
             this.VertexA = VertexA;
             this.VertexB = VertexB;
         }
+
+        @Override
+        public String toString() {
+            return "(" + VertexA + "," + VertexB + ";" + Arrays.toString(blackList) + ")";
+        }
+    }
+
+    public static void main(String[] args) {
+        String path = "exampleFiles\\test1.txt";
+        TestFile t = new TestFile(path);
+        t.print();
     }
 }
