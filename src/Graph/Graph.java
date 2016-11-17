@@ -1,13 +1,11 @@
 package Graph;
 
 import java.io.File;
-import java.util.List;
 import java.util.Scanner;
 
 public class Graph {
     private String path;
     private int num_of_nodes;
-    private int num_of_edges;
     private Dijkstra.Vertex vertices[];
     protected Dijkstra.DijkstraSP dsp;
 
@@ -19,8 +17,8 @@ public class Graph {
     private void loadGraph() {
         try {
             Scanner sc = new Scanner(new File(path));
-            num_of_nodes = (int) sc.nextDouble();
-            num_of_edges = (int) sc.nextDouble();
+            num_of_nodes = sc.nextInt();
+            sc.nextInt();
             vertices = new Dijkstra.Vertex[num_of_nodes];
             for (int i = 0; i < vertices.length; i++) {
                 vertices[i] = new Dijkstra.Vertex(i);
@@ -45,7 +43,41 @@ public class Graph {
         return this.vertices;
     }
 
-    public void ShrinkGraph(List<Dijkstra.Vertex> blackList) {
+    // TODO: Should fix ShrinkGraph method -> not working well
 
+    public void ShrinkGraph(int blackList[]) {
+        removeAdjectives(blackList);
+        removeVertices(blackList);
+    }
+
+    private void removeVertices(int blackList[]) {
+        Dijkstra.Vertex newVertices[] = new Dijkstra.Vertex[this.vertices.length - blackList.length];
+        for (int black : blackList) {
+            for (int i = 0; i < vertices.length; i++) {
+                if (i != black) {
+                    newVertices[i] = vertices[i];
+                }
+            }
+        }
+        this.vertices = newVertices;
+    }
+
+    private void removeAdjectives(int blackList[]) {
+        for (int black : blackList) {
+            Dijkstra.Vertex current = vertices[black];
+            for (Dijkstra.Edge e : current.adjacencies) {
+                Dijkstra.Vertex v = e.vert;
+                v.adjacencies.remove(current.name);
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        String res = "";
+        for (Dijkstra.Vertex v : vertices) {
+            res += v.toString() + ",\n";
+        }
+        return res;
     }
 }

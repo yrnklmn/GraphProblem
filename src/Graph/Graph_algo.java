@@ -1,6 +1,5 @@
 package Graph;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Graph_algo {
@@ -23,7 +22,8 @@ public class Graph_algo {
         return path.toString();
     }
 
-    public static String shortestPathExcludeBlacklist(Graph graph, int vertexA, int vertexB, List blackList) {
+    // TODO: Should fix ShrinkGraph method -> not working well
+    public static String shortestPathExcludeBlacklist(Graph graph, int vertexA, int vertexB, int blackList[]) {
         graph.ShrinkGraph(blackList);
         return shortestPath(graph, vertexA, vertexB);
     }
@@ -32,7 +32,6 @@ public class Graph_algo {
         Graph graph = new Graph("exampleFiles\\G0.txt");
         System.out.println("shortestCost: " + shortestCost(graph, 0, 1));
         System.out.println("shortestPath: " + shortestPath(graph, 0, 1));
-        List<Dijkstra.Vertex> list = new ArrayList<>();
-        System.out.println("shortestPath: " + shortestPathExcludeBlacklist(graph, 0, 1, list));
+        System.out.println("shortestPath: " + shortestPathExcludeBlacklist(graph, 0, 1, new int[]{}));
     }
 }

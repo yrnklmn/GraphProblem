@@ -15,12 +15,6 @@ public class TestFile {
         loadTestFile();
     }
 
-    public void print() {
-        for (Query q : testQueue) {
-            System.out.println(q.toString());
-        }
-    }
-
     private void loadTestFile() {
         try {
             Scanner sc = new Scanner(new File(path));
@@ -46,6 +40,19 @@ public class TestFile {
         }
     }
 
+    public Query[] getQueue() {
+        return this.testQueue;
+    }
+
+    @Override
+    public String toString() {
+        String res = "";
+        for (Query q : testQueue) {
+            res += q.toString() + ",\n";
+        }
+        return res;
+    }
+
     class Query {
         int VertexA, VertexB;
         int blackList[];
@@ -58,13 +65,13 @@ public class TestFile {
 
         @Override
         public String toString() {
-            return "(" + VertexA + "," + VertexB + ";" + Arrays.toString(blackList) + ")";
+            return "<" + VertexA + "," + VertexB + " ; " + Arrays.toString(blackList) + ">";
         }
     }
 
     public static void main(String[] args) {
         String path = "exampleFiles\\test1.txt";
         TestFile t = new TestFile(path);
-        t.print();
+
     }
 }

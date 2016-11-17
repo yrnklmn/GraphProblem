@@ -15,11 +15,6 @@ public class Dijkstra {
             this.vertices = vertices;
         }
 
-        public Vertex getVertex(int index) {
-
-            return vertices[index];
-        }
-
         public void computePaths(Vertex s) {
             s.minDistance = 0.;
             PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
@@ -41,11 +36,13 @@ public class Dijkstra {
             }
         }
 
-        public void print() {
+        @Override
+        public String toString() {
+            String res = "";
             for (int i = 0; i < vertices.length; i++) {
-                System.out.print(vertices[i].name + " : ");
-                System.out.println(Arrays.toString(vertices[i].adjacencies.toArray()));
+                res += vertices[i].name + " : \n" + Arrays.toString(vertices[i].adjacencies.toArray()) + "\n";
             }
+            return res;
         }
 
         public void printPaths() {
@@ -54,6 +51,11 @@ public class Dijkstra {
                 List<Vertex> path = getShortestPathTo(v);
                 System.out.println("Path: " + path);
             }
+        }
+
+        public Vertex getVertex(int index) {
+
+            return vertices[index];
         }
 
         public List<Vertex> getShortestPathTo(Vertex target) {
@@ -75,8 +77,13 @@ public class Dijkstra {
             name = argName;
         }
 
+        public boolean equals(Vertex u) {
+            return ((this.name == u.name) &&
+                    (this.adjacencies.equals(u.adjacencies)));
+        }
+
         public String toString() {
-            return name + "";
+            return "<" + name + "," + adjacencies.toString() + ">";
         }
 
         public int compareTo(Vertex other) {
@@ -94,8 +101,7 @@ public class Dijkstra {
         }
 
         public String toString() {
-            return "[" + vert + "," + weight + "]";
+            return "(" + vert.name + "," + weight + ")";
         }
     }
-
 }
