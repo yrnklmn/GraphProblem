@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * This class manage the extraction of a test queries from a txt file
+ */
 public class TestFile {
 
     private int num_of_query;
@@ -15,6 +18,9 @@ public class TestFile {
         loadTestFile();
     }
 
+    /**
+     * Open path's file and read data
+     */
     private void loadTestFile() {
         try {
             Scanner sc = new Scanner(new File(path));
@@ -40,6 +46,9 @@ public class TestFile {
         }
     }
 
+    /**
+     * @return the filled test query arrays
+     */
     public Query[] getQueue() {
         return this.testQueue;
     }
@@ -53,6 +62,9 @@ public class TestFile {
         return res;
     }
 
+    /**
+     * This class represent a single query from Test File
+     */
     class Query {
         int VertexA, VertexB;
         int blackList[];
