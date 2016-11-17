@@ -38,7 +38,6 @@ public class Sanity {
     public void startTest() {
         for (TestFile.Query q : testFile.getQueue()) {
             System.out.println("Test: " + q.toString());
-            printGraph();
             System.out.println(execute(q));
         }
     }
@@ -52,9 +51,13 @@ public class Sanity {
     private String execute(TestFile.Query q) {
         temp_graph = new Graph(main_graph);
         double cost = Graph_algo.shortestCost(this.temp_graph, q.VertexA, q.VertexB);
-        String path = Graph_algo.shortestPath(this.temp_graph, q.VertexA, q.VertexB);
-        String noBlackList = Graph_algo.shortestPathExcludeBlacklist(this.main_graph, q.VertexA, q.VertexB, q.blackList);
-        return cost + "; " + path + "; " + noBlackList;
+        String path = "";//Graph_algo.shortestPath(this.temp_graph, q.VertexA, q.VertexB);
+        if (q.blackList.length > 0) {
+            String pathWithNoBlackList = Graph_algo.shortestPathExcludeBlacklist(this.temp_graph, q.VertexA, q.VertexB, q.blackList);
+            return cost + "; " + path + "; " + pathWithNoBlackList;
+        } else {
+            return cost + "; " + path;
+        }
     }
 
     public static void main(String[] args) {

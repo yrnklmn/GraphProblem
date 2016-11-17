@@ -39,6 +39,46 @@ public class Dijkstra {
             }
         }
 
+        private boolean contains(int x, int list[]) {
+            for (int y : list) {
+                if (x == y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void computePaths(Vertex s, int blackList[]) {
+//            for (int black : blackList) {
+//                vertices[black].minDistance = 10000;
+//                for (int i=0; i<vertices[black].adjacencies.size(); i++)
+//            }
+            s.minDistance = 0.;
+            PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
+            vertexQueue.add(s);
+            while (!vertexQueue.isEmpty()) {
+                Vertex u = vertexQueue.poll();
+                if(contains(u.name,blackList)==false)
+                {
+                    // Visit each edge exiting u
+                    for (Edge e : u.adjacencies) {
+                        Vertex v = e.vert;
+
+                        double weight = e.weight;
+                        double distanceThroughU = u.minDistance + weight;
+                        if (distanceThroughU < v.minDistance) {//relaxation
+                            vertexQueue.remove(v);
+                            v.minDistance = distanceThroughU;
+                            v.previous = u;
+                            vertexQueue.add(v);
+                        }
+
+
+                    }
+                }
+            }
+        }
+
         @Override
         public String toString() {
             String res = "";
@@ -95,7 +135,7 @@ public class Dijkstra {
         }
 
         public String toString() {
-            return "<" + name + "," + adjacencies.toString() + ">";
+            return "<" + name + ";" + this.adjacencies.toString() + ">";
         }
 
         public int compareTo(Vertex other) {
