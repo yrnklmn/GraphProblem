@@ -17,6 +17,28 @@ public class Graph {
         loadGraph();
     }
 
+    public int getNumOfNodes() {
+        return this.num_of_nodes;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public Dijkstra.DijkstraSP getDSP() {
+        return this.dsp;
+    }
+
+    public Graph(Graph other) {
+        this.path = other.path;
+        this.num_of_nodes = other.getNumOfNodes();
+        this.vertices = new Dijkstra.Vertex[num_of_nodes];
+        for (int i = 0; i < num_of_nodes; i++) {
+            this.vertices[i] = new Dijkstra.Vertex(other.vertices[i]);
+        }
+        this.dsp = new Dijkstra.DijkstraSP(this.vertices);
+    }
+
     /**
      * Open path's file and read data
      */
@@ -60,6 +82,7 @@ public class Graph {
     public void ShrinkGraph(int blackList[]) {
         removeAdjectives(blackList);
         removeVertices(blackList);
+        this.num_of_nodes--;
     }
 
     /**

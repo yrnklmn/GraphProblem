@@ -65,7 +65,7 @@ public class TestFile {
     /**
      * This class represent a single query from Test File
      */
-    class Query {
+    static class Query {
         int VertexA, VertexB;
         int blackList[];
 

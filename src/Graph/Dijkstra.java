@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 // TODO: make this algorithm work for more than one query
+
 public class Dijkstra {
 
     public static class DijkstraSP {
@@ -79,6 +80,15 @@ public class Dijkstra {
             name = argName;
         }
 
+        public Vertex(Vertex v) {
+            this.name = v.name;
+            this.adjacencies = new Vector<Dijkstra.Edge>();
+            for (Edge e : v.adjacencies) {
+                this.adjacencies.add(new Edge(e));
+            }
+            this.minDistance = v.minDistance;
+        }
+
         public boolean equals(Vertex u) {
             return ((this.name == u.name) &&
                     (this.adjacencies.equals(u.adjacencies)));
@@ -100,6 +110,11 @@ public class Dijkstra {
         public Edge(Vertex v, double w) {
             vert = v;
             weight = w;
+        }
+
+        public Edge(Edge e) {
+            this.vert = new Vertex(e.vert.name);
+            this.weight = e.weight;
         }
 
         public String toString() {
