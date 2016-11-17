@@ -26,11 +26,11 @@ public class Graph {
             while (sc.hasNext() == true) {
                 int FirstNode = sc.nextInt();
                 int SecondNode = sc.nextInt();
-                double edge = sc.nextDouble();
-                Dijkstra.Edge edge1 = new Dijkstra.Edge(vertices[FirstNode], edge);
-                Dijkstra.Edge edge2 = new Dijkstra.Edge(vertices[SecondNode], edge);
-                vertices[FirstNode].adjacencies.add(edge1);
-                vertices[SecondNode].adjacencies.add(edge2);
+                double weight = sc.nextDouble();
+                Dijkstra.Edge edge1 = new Dijkstra.Edge(vertices[FirstNode], weight);
+                Dijkstra.Edge edge2 = new Dijkstra.Edge(vertices[SecondNode], weight);
+                vertices[FirstNode].adjacencies.add(edge2);
+                vertices[SecondNode].adjacencies.add(edge1);
             }
             sc.close();
         } catch (Exception e) {
@@ -39,11 +39,9 @@ public class Graph {
         dsp = new Dijkstra.DijkstraSP(vertices);
     }
 
-    public Dijkstra.Vertex[] getVertecies() {
+    public Dijkstra.Vertex[] getVertices() {
         return this.vertices;
     }
-
-    // TODO: Should fix ShrinkGraph method -> not working well
 
     public void ShrinkGraph(int blackList[]) {
         removeAdjectives(blackList);
@@ -52,10 +50,11 @@ public class Graph {
 
     private void removeVertices(int blackList[]) {
         Dijkstra.Vertex newVertices[] = new Dijkstra.Vertex[this.vertices.length - blackList.length];
+        int j = 0;
         for (int black : blackList) {
             for (int i = 0; i < vertices.length; i++) {
                 if (i != black) {
-                    newVertices[i] = vertices[i];
+                    newVertices[j++] = vertices[i];
                 }
             }
         }

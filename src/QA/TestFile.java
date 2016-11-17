@@ -31,7 +31,7 @@ public class TestFile {
                     }
                     testQueue[i] = new Query(VertexA, VertexB, blackList);
                 } else {
-                    testQueue[i] = new Query(VertexA, VertexB, null);
+                    testQueue[i] = new Query(VertexA, VertexB, new int[]{});
                 }
             }
             sc.close();

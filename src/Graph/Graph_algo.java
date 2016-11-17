@@ -6,7 +6,7 @@ public class Graph_algo {
     private Dijkstra.DijkstraSP dsp;
 
     public Graph_algo(String path) {
-        dsp = new Dijkstra.DijkstraSP((new Graph(path)).getVertecies());
+        dsp = new Dijkstra.DijkstraSP((new Graph(path)).getVertices());
     }
 
     public static double shortestCost(Graph graph, int vertexA, int vertexB) {
@@ -22,7 +22,6 @@ public class Graph_algo {
         return path.toString();
     }
 
-    // TODO: Should fix ShrinkGraph method -> not working well
     public static String shortestPathExcludeBlacklist(Graph graph, int vertexA, int vertexB, int blackList[]) {
         graph.ShrinkGraph(blackList);
         return shortestPath(graph, vertexA, vertexB);

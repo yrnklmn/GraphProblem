@@ -17,7 +17,7 @@
  * loadGraph(GraphFile);
  * }
  * <p>
- * public Graph.Dijkstra.Vertex[] getVertecies() {
+ * public Graph.Dijkstra.Vertex[] getVertices() {
  * return this.vertices;
  * }
  * <p>

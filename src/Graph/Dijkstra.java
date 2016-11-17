@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+// TODO: make this algorithm work for more than one query
 public class Dijkstra {
     public static class DijkstraSP {
         Vertex[] vertices;

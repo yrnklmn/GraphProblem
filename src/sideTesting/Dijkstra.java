@@ -96,7 +96,7 @@
 
  public static void main(String[] args) {
  String path = "exampleFiles\\G0.txt";
- DijkstraSP dsp = new DijkstraSP((new Graph.Graph(path)).getVertecies());
+ DijkstraSP dsp = new DijkstraSP((new Graph.Graph(path)).getVertices());
  dsp.computePaths(dsp.getVertex(1));
  System.out.println(dsp.getShortestPathTo(dsp.getVertex(1)));
  dsp.printPathes();
