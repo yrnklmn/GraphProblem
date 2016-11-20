@@ -49,10 +49,6 @@ public class Dijkstra {
         }
 
         public void computePaths(Vertex s, int blackList[]) {
-//            for (int black : blackList) {
-//                vertices[black].minDistance = 10000;
-//                for (int i=0; i<vertices[black].adjacencies.size(); i++)
-//            }
             s.minDistance = 0.;
             PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
             vertexQueue.add(s);

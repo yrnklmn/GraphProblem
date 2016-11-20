@@ -41,12 +41,11 @@ public class Graph_algo {
      * @param graph
      * @param vertexA
      * @param vertexB
-     * @param blackList
      * @return string the represents the shortest path contains vertices on the path
      */
-    public static String shortestPathExcludeBlacklist(Graph graph, int vertexA, int vertexB, int blackList[]) {
+    public static String shortestPathExcludeBlacklist(Graph graph, int vertexA, int vertexB) {
 //TODO: complete this function
-        graph.dsp.computePaths(graph.dsp.getVertex(vertexA), blackList);
+        graph.dsp.computePaths(graph.dsp.getVertex(vertexA));
         Dijkstra.Vertex vertex = graph.dsp.getVertex(vertexB);
         List<Dijkstra.Vertex> path = graph.dsp.getShortestPathTo(vertex);
         return path.toString();
@@ -56,6 +55,6 @@ public class Graph_algo {
         Graph graph = new Graph("exampleFiles\\G0.txt");
         System.out.println("shortestCost: " + shortestCost(graph, 0, 1));
         System.out.println("shortestPath: " + shortestPath(graph, 0, 1));
-        System.out.println("shortestPathWithBlackList: " + shortestPathExcludeBlacklist(graph, 0, 1, new int[]{}));
+        System.out.println("shortestPathWithBlackList: " + shortestPathExcludeBlacklist(graph, 0, 1));
     }
 }

@@ -49,14 +49,19 @@ public class Sanity {
      * @return results for each query is format: cost + "; " + path + "; " + noBlackList
      */
     private String execute(TestFile.Query q) {
+        double cost;
+        String path;
+        String pathWithNoBlackList;
         temp_graph = new Graph(main_graph);
-        double cost = Graph_algo.shortestCost(this.temp_graph, q.VertexA, q.VertexB);
-        String path = "";//Graph_algo.shortestPath(this.temp_graph, q.VertexA, q.VertexB);
         if (q.blackList.length > 0) {
-            String pathWithNoBlackList = Graph_algo.shortestPathExcludeBlacklist(this.temp_graph, q.VertexA, q.VertexB, q.blackList);
-            return cost + "; " + path + "; " + pathWithNoBlackList;
+            temp_graph.ShrinkGraph(q.blackList);
+            cost = Graph_algo.shortestCost(this.temp_graph, q.VertexA, q.VertexB);
+            pathWithNoBlackList = Graph_algo.shortestPathExcludeBlacklist(this.temp_graph, q.VertexA, q.VertexB);
+            return "Cost: " + cost + ";\t" + pathWithNoBlackList;
         } else {
-            return cost + "; " + path;
+            cost = Graph_algo.shortestCost(this.temp_graph, q.VertexA, q.VertexB);
+            path = Graph_algo.shortestPath(this.temp_graph, q.VertexA, q.VertexB);
+            return "Cost: " + cost + ";\t" + path;
         }
     }
 

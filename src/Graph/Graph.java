@@ -22,10 +22,11 @@ public class Graph {
         loadGraph();
     }
 
-    public int getNumOfNodes() {
-        return this.num_of_nodes;
-    }
-
+    /**
+     * Copy constructor
+     *
+     * @param other
+     */
     public Graph(Graph other) {
         this.path = other.path;
         this.num_of_nodes = other.getNumOfNodes();
@@ -76,55 +77,71 @@ public class Graph {
         dsp = new Dijkstra.DijkstraSP(vertices);
     }
 
-//    /**
-//     * Remove all Vertex connections from a given black list and assign it to the vertices array
-//     *
-//     * @param blackList
-//     */
-//    public void ShrinkGraph(int blackList[]) {
-//        removeAdjectives(blackList);
-//        removeVertices(blackList);
-////        this.num_of_nodes;
-//    }
-//
-//    /**
-//     * Managed by ShrinkGraph function, responsible for deleting the black listed Vertex from the graph
-//     *
-//     * @param blackList
-//     */
-//    private void removeVertices(int blackList[]) {
-//        Dijkstra.Vertex newVertices[] = new Dijkstra.Vertex[this.vertices.length - blackList.length];
-//        int j = 0;
+    public int getNumOfNodes() {
+        return this.num_of_nodes;
+    }
+
+    /**
+     * Remove all Vertex connections from a given black list and assign it to the vertices array
+     *
+     * @param blackList
+     */
+    public void ShrinkGraph(int blackList[]) {
+        removeAdjectives(blackList);
+        removeVertices(blackList);
+//        this.num_of_nodes;
+    }
+
+    /**
+     * Managed by ShrinkGraph function, responsible for deleting the black listed Vertex from the graph
+     *
+     * @param blackList
+     */
+    private void removeVertices(int blackList[]) {
+        Dijkstra.Vertex newVertices[] = new Dijkstra.Vertex[this.vertices.length - blackList.length];
+        int j = 0;
 //        for (int black : blackList) {
-//            for (int i = 0; i < vertices.length; i++) {
+        for (int i = 0; i < vertices.length; i++) {
 //                if (i != black) {
-//                    newVertices[j++] = vertices[i];
-//                }
-//            }
+            if (!contain(i, blackList)) {
+                newVertices[j++] = vertices[i];
+            }
 //        }
-//        this.vertices = newVertices;
-//    }
-//
-//    /**
-//     * Managed by ShrinkGraph function, responsible for deleting the black listed vertices connections
-//     * from other vertices in the graph
-//     *
-//     * @param blackList
-//     */
-//    private void removeAdjectives(int blackList[]) {
-//        for (int black : blackList) {
-//            Dijkstra.Vertex current = vertices[black];
-//            for (Dijkstra.Edge e : current.adjacencies) {
-//                Dijkstra.Vertex v = e.vert;
-//                // v.adjacencies.remove(current.name);
-//                for (int i = 0; i < v.adjacencies.size(); i++) {
-//                    if (v.adjacencies.get(i).vert.name == current.name) {
-//                        v.adjacencies.remove(i);
-//                    }
-//                }
-//            }
+        }
 //        }
-//    }
+        this.vertices = newVertices;
+    }
+
+    private boolean contain(int x, int[] list) {
+        for (int y : list) {
+            if (x == y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Managed by ShrinkGraph function, responsible for deleting the black listed vertices connections
+     * from other vertices in the graph
+     *
+     * @param blackList
+     */
+    private void removeAdjectives(int blackList[]) {
+        for (int black : blackList) {
+            Dijkstra.Vertex current = vertices[black];
+            for (Dijkstra.Edge e : current.adjacencies) {
+                Dijkstra.Vertex v = e.vert;
+                // v.adjacencies.remove(current.name);
+                for (int i = 0; i < v.adjacencies.size(); i++) {
+                    if (v.adjacencies.get(i).vert.name == current.name) {
+                        v.adjacencies.remove(i);
+                    }
+                }
+            }
+        }
+    }
 
     @Override
     public String toString() {
