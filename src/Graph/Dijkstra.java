@@ -58,8 +58,7 @@ public class Dijkstra {
             vertexQueue.add(s);
             while (!vertexQueue.isEmpty()) {
                 Vertex u = vertexQueue.poll();
-                if(contains(u.name,blackList)==false)
-                {
+                if (contains(u.name, blackList) == false) {
                     // Visit each edge exiting u
                     for (Edge e : u.adjacencies) {
                         Vertex v = e.vert;
