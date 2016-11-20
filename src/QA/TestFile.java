@@ -91,16 +91,16 @@ public class TestFile {
      * @param results
      * @param runtime
      */
-    public static void exportResults(Graph graph, Sanity.Result[] results, double runtime) {
+    public static void exportResults(Graph graph, Sanity.Result[] results, double runtime, int fileName) {
         try {
-            File output = new File("exampleFiles\\result.txt");
+            File output = new File("exampleFiles\\result" + fileName + ".txt");
             output.createNewFile();
             PrintWriter pr = new PrintWriter(output);
             for (Sanity.Result r : results) {
-                pr.print(r.getQuery() + " " + r.getWeight() + "\n");
+                pr.println(r.getQuery() + " " + r.getWeight());
             }
             pr.print("Graph: |V|=" + graph.getNumOfNodes() + ", |E|=" + graph.getNumOfEdges() + "!TIE, Radius:"
-                    + graph.getRadius() + ", Diameter: " + graph.getDiameter() + ", runtime: " + runtime+" ms.");
+                    + graph.getRadius() + ", Diameter: " + graph.getDiameter() + ", runtime: " + runtime + " ms.");
             pr.close();
         } catch (Exception e) {
             e.printStackTrace();

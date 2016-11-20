@@ -87,10 +87,16 @@ public class Sanity {
     }
 
     public static void main(String[] args) {
-        String graphPath = "exampleFiles\\G0.txt";
-        String testPath = "exampleFiles\\test1.txt";
+        // graph file number to load
+        int graphNum = 1;
+        // result file number
+        int resultFileNum = 1;
+        // test file number to load
+        int testNum = 1;
+        String graphPath = "exampleFiles\\G" + graphNum + ".txt";
+        String testPath = "exampleFiles\\test" + testNum + ".txt";
         Sanity sanity = new Sanity(graphPath, testPath);
         Result[] results = sanity.startTest();
-        TestFile.exportResults(sanity.main_graph, results, sanity.getRunTime());
+        TestFile.exportResults(sanity.main_graph, results, sanity.getRunTime(), resultFileNum);
     }
 }

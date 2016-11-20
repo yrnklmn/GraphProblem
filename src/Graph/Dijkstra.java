@@ -79,7 +79,8 @@ public class Dijkstra {
         }
 
         public String toString() {
-            return "<" + name + ";" + this.adjacencies.toString() + ">";
+//            return "<" + name + ";" + this.adjacencies.toString() + ">";
+            return this.name + "";
         }
 
         public int compareTo(Vertex other) {
