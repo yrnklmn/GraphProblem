@@ -10,8 +10,10 @@ public class Sanity {
     private Graph main_graph;
     private Graph temp_graph;
     private TestFile testFile;
+    private double runTime, startTime, endTime;
 
     public Sanity(String graphPath, String testPath) {
+        startTime = System.currentTimeMillis();
         this.main_graph = new Graph(graphPath);
         this.testFile = new TestFile(testPath);
     }
@@ -40,6 +42,12 @@ public class Sanity {
             System.out.println("Test: " + q.toString());
             System.out.println(execute(q));
         }
+        endTime = System.currentTimeMillis();
+        runTime = endTime - startTime;
+    }
+
+    public double getrunTime() {
+        return this.runTime;
     }
 
     /**
@@ -69,9 +77,6 @@ public class Sanity {
         String graphPath = "exampleFiles\\G0.txt";
         String testPath = "exampleFiles\\test1.txt";
         Sanity sanity = new Sanity(graphPath, testPath);
-        sanity.printGraph();
-        sanity.printTestFile();
         sanity.startTest();
-
     }
 }

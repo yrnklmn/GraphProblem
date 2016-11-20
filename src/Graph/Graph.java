@@ -89,7 +89,7 @@ public class Graph {
     public void ShrinkGraph(int blackList[]) {
         removeAdjectives(blackList);
         removeVertices(blackList);
-//        this.num_of_nodes;
+        this.num_of_nodes -= blackList.length;
     }
 
     /**
