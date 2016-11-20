@@ -81,6 +81,10 @@ public class Graph {
         return this.num_of_nodes;
     }
 
+    public int getNumOfEdges() {
+        return this.num_of_edges;
+    }
+
     /**
      * Remove all Vertex connections from a given black list and assign it to the vertices array
      *
@@ -150,5 +154,15 @@ public class Graph {
             res += v.toString() + ",\n";
         }
         return res;
+    }
+
+
+    // TODO: complete these functions
+    public double getRadius() {
+        return 1;
+    }
+
+    public double getDiameter() {
+        return 1;
     }
 }

@@ -11,6 +11,7 @@ public class Sanity {
     private Graph temp_graph;
     private TestFile testFile;
     private double runTime, startTime, endTime;
+    private Result results[];
 
     public Sanity(String graphPath, String testPath) {
         startTime = System.currentTimeMillis();
@@ -37,13 +38,14 @@ public class Sanity {
     /**
      * Starting the test that was received from TestFile on the current main_graph
      */
-    public void startTest() {
-        for (TestFile.Query q : testFile.getQueue()) {
-            System.out.println("Test: " + q.toString());
-            System.out.println(execute(q));
+    public Result[] startTest() {
+        this.results = new Result[testFile.getQueue().length];
+        for (int i = 0; i < testFile.getQueue().length; i++) {
+            results[i] = execute(testFile.getQueue()[i]);
         }
         endTime = System.currentTimeMillis();
         runTime = endTime - startTime;
+        return results;
     }
 
     public double getrunTime() {
@@ -56,20 +58,43 @@ public class Sanity {
      * @param q
      * @return results for each query is format: cost + "; " + path + "; " + noBlackList
      */
-    private String execute(TestFile.Query q) {
+    private Result execute(TestFile.Query q) {
         double cost;
         String path;
-        String pathWithNoBlackList;
         temp_graph = new Graph(main_graph);
         if (q.blackList.length > 0) {
             temp_graph.ShrinkGraph(q.blackList);
             cost = Graph_algo.shortestCost(this.temp_graph, q.VertexA, q.VertexB);
-            pathWithNoBlackList = Graph_algo.shortestPathExcludeBlacklist(this.temp_graph, q.VertexA, q.VertexB);
-            return "Cost: " + cost + ";\t" + pathWithNoBlackList;
+            path = Graph_algo.shortestPathExcludeBlacklist(this.temp_graph, q.VertexA, q.VertexB);
         } else {
             cost = Graph_algo.shortestCost(this.temp_graph, q.VertexA, q.VertexB);
             path = Graph_algo.shortestPath(this.temp_graph, q.VertexA, q.VertexB);
-            return "Cost: " + cost + ";\t" + path;
+        }
+        return new Result(q, path, cost);
+    }
+
+    class Result {
+        private TestFile.Query query;
+        private double weight;
+        private String path;
+
+        public Result(TestFile.Query query, String path, double weight) {
+            this.weight = weight;
+            this.path = path;
+            this.query = query;
+        }
+
+        public String getPath() {
+            return this.path;
+        }
+
+        public double getWeight() {
+            return this.weight;
+        }
+
+        @Override
+        public String toString() {
+            return this.weight + " " + this.path;
         }
     }
 
@@ -77,6 +102,6 @@ public class Sanity {
         String graphPath = "exampleFiles\\G0.txt";
         String testPath = "exampleFiles\\test1.txt";
         Sanity sanity = new Sanity(graphPath, testPath);
-        sanity.startTest();
+        TestFile.exportResults(sanity.main_graph, sanity.startTest(), sanity.runTime);
     }
 }

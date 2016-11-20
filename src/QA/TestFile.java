@@ -1,6 +1,9 @@
 package QA;
 
+import Graph.Graph;
+
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -77,13 +80,23 @@ public class TestFile {
 
         @Override
         public String toString() {
-            return "<" + VertexA + "," + VertexB + " ; " + Arrays.toString(blackList) + ">";
+            return VertexA + " " + VertexB + " " + blackList.length + " " + Arrays.toString(blackList);
         }
     }
 
-    public static void main(String[] args) {
-        String path = "exampleFiles\\test1.txt";
-        TestFile t = new TestFile(path);
-
+    public static void exportResults(Graph graph, Sanity.Result[] results, double runtime) {
+        try {
+            File output = new File("\\result.txt");
+            PrintWriter pr = new PrintWriter(output);
+            output.createNewFile();
+            for (Sanity.Result r : results) {
+                pr.print(r.getWeight());
+            }
+            pr.print("Graph: |V|=" + graph.getNumOfNodes() + ", |E|=" + graph.getNumOfEdges() + "!TIE, Radius:"
+                    + graph.getRadius() + ", Diameter: " + graph.getDiameter() + ", runtime: " + runtime);
+            pr.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
