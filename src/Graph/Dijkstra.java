@@ -36,15 +36,6 @@ public class Dijkstra {
             }
         }
 
-        private boolean contains(int x, int list[]) {
-            for (int y : list) {
-                if (x == y) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         @Override
         public String toString() {
             String res = "";
@@ -55,7 +46,6 @@ public class Dijkstra {
         }
 
         public Vertex getVertex(int index) {
-
             return vertices[index];
         }
 
