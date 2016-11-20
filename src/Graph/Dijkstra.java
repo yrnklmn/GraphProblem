@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-// TODO: make this algorithm work for more than one query
-
 public class Dijkstra {
 
     public static class DijkstraSP {
@@ -24,12 +22,11 @@ public class Dijkstra {
             vertexQueue.add(s);
             while (!vertexQueue.isEmpty()) {
                 Vertex u = vertexQueue.poll();
-                // Visit each edge exiting u
                 for (Edge e : u.adjacencies) {
                     Vertex v = e.vert;
                     double weight = e.weight;
                     double distanceThroughU = u.minDistance + weight;
-                    if (distanceThroughU < v.minDistance) {//relaxation
+                    if (distanceThroughU < v.minDistance) {
                         vertexQueue.remove(v);
                         v.minDistance = distanceThroughU;
                         v.previous = u;
@@ -48,32 +45,6 @@ public class Dijkstra {
             return false;
         }
 
-        public void computePaths(Vertex s, int blackList[]) {
-            s.minDistance = 0.;
-            PriorityQueue<Vertex> vertexQueue = new PriorityQueue<Vertex>();
-            vertexQueue.add(s);
-            while (!vertexQueue.isEmpty()) {
-                Vertex u = vertexQueue.poll();
-                if (contains(u.name, blackList) == false) {
-                    // Visit each edge exiting u
-                    for (Edge e : u.adjacencies) {
-                        Vertex v = e.vert;
-
-                        double weight = e.weight;
-                        double distanceThroughU = u.minDistance + weight;
-                        if (distanceThroughU < v.minDistance) {//relaxation
-                            vertexQueue.remove(v);
-                            v.minDistance = distanceThroughU;
-                            v.previous = u;
-                            vertexQueue.add(v);
-                        }
-
-
-                    }
-                }
-            }
-        }
-
         @Override
         public String toString() {
             String res = "";
@@ -81,14 +52,6 @@ public class Dijkstra {
                 res += vertices[i].name + " : \n" + Arrays.toString(vertices[i].adjacencies.toArray()) + "\n";
             }
             return res;
-        }
-
-        public void printPaths() {
-            for (Vertex v : vertices) {
-                System.out.println("Distance to " + v + ": " + v.minDistance);
-                List<Vertex> path = getShortestPathTo(v);
-                System.out.println("Path: " + path);
-            }
         }
 
         public Vertex getVertex(int index) {
@@ -115,20 +78,6 @@ public class Dijkstra {
             name = argName;
         }
 
-        public Vertex(Vertex v) {
-            this.name = v.name;
-            this.adjacencies = new Vector<Dijkstra.Edge>();
-            for (Edge e : v.adjacencies) {
-                this.adjacencies.add(new Edge(e));
-            }
-            this.minDistance = v.minDistance;
-        }
-
-        public boolean equals(Vertex u) {
-            return ((this.name == u.name) &&
-                    (this.adjacencies.equals(u.adjacencies)));
-        }
-
         public String toString() {
             return "<" + name + ";" + this.adjacencies.toString() + ">";
         }
@@ -145,11 +94,6 @@ public class Dijkstra {
         public Edge(Vertex v, double w) {
             vert = v;
             weight = w;
-        }
-
-        public Edge(Edge e) {
-            this.vert = new Vertex(e.vert.name);
-            this.weight = e.weight;
         }
 
         public String toString() {

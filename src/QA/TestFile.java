@@ -84,16 +84,23 @@ public class TestFile {
         }
     }
 
+    /**
+     * This function exports the results of the graph calculations to an output file
+     *
+     * @param graph
+     * @param results
+     * @param runtime
+     */
     public static void exportResults(Graph graph, Sanity.Result[] results, double runtime) {
         try {
-            File output = new File("\\result.txt");
-            PrintWriter pr = new PrintWriter(output);
+            File output = new File("exampleFiles\\result.txt");
             output.createNewFile();
+            PrintWriter pr = new PrintWriter(output);
             for (Sanity.Result r : results) {
-                pr.print(r.getWeight());
+                pr.print(r.getQuery() + " " + r.getWeight() + "\n");
             }
             pr.print("Graph: |V|=" + graph.getNumOfNodes() + ", |E|=" + graph.getNumOfEdges() + "!TIE, Radius:"
-                    + graph.getRadius() + ", Diameter: " + graph.getDiameter() + ", runtime: " + runtime);
+                    + graph.getRadius() + ", Diameter: " + graph.getDiameter() + ", runtime: " + runtime+" ms.");
             pr.close();
         } catch (Exception e) {
             e.printStackTrace();

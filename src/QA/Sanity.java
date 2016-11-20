@@ -20,22 +20,6 @@ public class Sanity {
     }
 
     /**
-     * Printing the current main_graph
-     */
-    public void printGraph() {
-        System.out.println("Graph:");
-        System.out.println(this.main_graph.toString());
-    }
-
-    /**
-     * Printing the current Test File
-     */
-    public void printTestFile() {
-        System.out.println("Test File:");
-        System.out.println(this.testFile.toString());
-    }
-
-    /**
      * Starting the test that was received from TestFile on the current main_graph
      */
     public Result[] startTest() {
@@ -48,7 +32,7 @@ public class Sanity {
         return results;
     }
 
-    public double getrunTime() {
+    public double getRunTime() {
         return this.runTime;
     }
 
@@ -84,6 +68,10 @@ public class Sanity {
             this.query = query;
         }
 
+        public TestFile.Query getQuery() {
+            return this.query;
+        }
+
         public String getPath() {
             return this.path;
         }
@@ -102,6 +90,7 @@ public class Sanity {
         String graphPath = "exampleFiles\\G0.txt";
         String testPath = "exampleFiles\\test1.txt";
         Sanity sanity = new Sanity(graphPath, testPath);
-        TestFile.exportResults(sanity.main_graph, sanity.startTest(), sanity.runTime);
+        Result[] results = sanity.startTest();
+        TestFile.exportResults(sanity.main_graph, results, sanity.getRunTime());
     }
 }

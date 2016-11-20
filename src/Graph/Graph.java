@@ -15,11 +15,13 @@ public class Graph {
     private Dijkstra.Vertex vertices[];
     protected Dijkstra.DijkstraSP dsp;
     private Vector<String> template;
+    private Graph_statistics graph_statistics;
 
     public Graph(String path) {
         this.path = path;
         template = new Vector<>();
         loadGraph();
+        graph_statistics = new Graph_statistics(this);
     }
 
     /**
@@ -104,15 +106,11 @@ public class Graph {
     private void removeVertices(int blackList[]) {
         Dijkstra.Vertex newVertices[] = new Dijkstra.Vertex[this.vertices.length - blackList.length];
         int j = 0;
-//        for (int black : blackList) {
         for (int i = 0; i < vertices.length; i++) {
-//                if (i != black) {
             if (!contain(i, blackList)) {
                 newVertices[j++] = vertices[i];
             }
-//        }
         }
-//        }
         this.vertices = newVertices;
     }
 
@@ -125,7 +123,6 @@ public class Graph {
         return false;
     }
 
-
     /**
      * Managed by ShrinkGraph function, responsible for deleting the black listed vertices connections
      * from other vertices in the graph
@@ -137,7 +134,6 @@ public class Graph {
             Dijkstra.Vertex current = vertices[black];
             for (Dijkstra.Edge e : current.adjacencies) {
                 Dijkstra.Vertex v = e.vert;
-                // v.adjacencies.remove(current.name);
                 for (int i = 0; i < v.adjacencies.size(); i++) {
                     if (v.adjacencies.get(i).vert.name == current.name) {
                         v.adjacencies.remove(i);
@@ -156,13 +152,11 @@ public class Graph {
         return res;
     }
 
-
-    // TODO: complete these functions
     public double getRadius() {
-        return 1;
+        return this.graph_statistics.getRadius();
     }
 
     public double getDiameter() {
-        return 1;
+        return this.graph_statistics.getDiameter();
     }
 }
