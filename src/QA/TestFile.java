@@ -80,7 +80,7 @@ public class TestFile {
 
         @Override
         public String toString() {
-            return VertexA + " " + VertexB + " " + blackList.length + " " + Arrays.toString(blackList);
+            return VertexA + " " + VertexB + " " + blackList.length + " " + Generator.arrayToString(blackList);
         }
     }
 
@@ -97,7 +97,7 @@ public class TestFile {
             output.createNewFile();
             PrintWriter pr = new PrintWriter(output);
             for (Sanity.Result r : results) {
-                pr.println(r.getQuery() + " " + r.getWeight());
+                pr.println(r.getQuery() + "" + r.getWeight());
             }
             pr.print("Graph: |V|=" + graph.getNumOfNodes() + ", |E|=" + graph.getNumOfEdges() + "!TIE, Radius:"
                     + graph.getRadius() + ", Diameter: " + graph.getDiameter() + ", runtime: " + runtime + " ms.");
